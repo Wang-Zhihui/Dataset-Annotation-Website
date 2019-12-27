@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style type="text/css">
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        #content{
+            width: 960px;
+/*          padding: 5px;*/
+            padding-left: 20px;
+        }
+        #content{
+            line-height: 30px;
+            text-indent : 2em;
+            text-align : justify;
+            font-size: 16px;
+        }
+
+        .btn-two {
+            color: white;   
+            padding: 15px 25px;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.21);
+            border-bottom-color: rgba(0,0,0,0.34);
+            text-shadow:0 1px 0 rgba(0,0,0,0.15);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset, 
+                              0 2px 0 -1px rgba(0,0,0,0.13), 
+                              0 3px 0 -1px rgba(0,0,0,0.08), 
+                              0 3px 13px -1px rgba(0,0,0,0.21);
+        }
+
+        .btn-two:active {
+            top: 1px;
+            border-color: rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
+            position: relative;
+        }
+
+        .btn.red, .btn-two.red{background-color: #fa5a5a;}
+
+        .btn.mini, 
+        .btn-two.mini, 
+        .btn-gradient.mini, 
+        .btn-effect.mini {
+          padding: 4px 12px;  
+          font-size: 12px;
+        }
+
+    </style>
+    <script src="./jquery.min.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            $('#transfer').bind("click",function(){
+                click_end_time=new Date().getTime();
+                var chazhi = (click_end_time - click_start_time) / 1000;
+                // if(click_check == false){
+                //     alert("您没观看视频吧，别这样了，请重新观看。");
+                //     window.location.reload();
+                // }
+                if(chazhi <= 600){
+                    alert("你是否没载入视频？或者没有看完视频？或者跳着观看？请完整观看完视频。");
+                    return;
+                }
+                window.parent.postMessage('paer_1_finish == true', '*');
+            });
+        })
+        
+        // var click_check = false;
+        var click_start_time;
+        var click_end_time;
+        
+
+        window.onload = function(){
+            click_start_time=new Date().getTime();
+            // var eleSelect = document.getElementById('selRate');
+            // var btnLoad = document.getElementById('btnLoad');
+            // 视频元素
+            //var video_control = document.getElementById('video_control');
+            // 改变播放速率
+            // eleSelect.addEventListener('change', function () {
+            //     video_control.playbackRate = this.value;
+            // });
+            // btnLoad.addEventListener('click', function () {
+            //     video_control.src = './videos/taiwan.mp4';
+            //     click_start_time=new Date().getTime();
+            //     click_check = true;
+            // });
+        }
+        
+    </script>
+</head>
+<body>
+        <div id="content">
+            <h2>Part 1</h2>
+            <p>在心理学界共识中，人类具有以下七种基本的表情。</p>
+            <ul>
+                <li style="margin-left: 100px;font-weight: bold;">高兴（happiness）</li>
+                <li style="margin-left: 100px;font-weight: bold;">悲伤（sadness）</li>
+                <li style="margin-left: 100px;font-weight: bold;">惊讶（surprise）</li>
+                <li style="margin-left: 100px;font-weight: bold;">厌恶（disgust）</li>
+                <li style="margin-left: 100px;font-weight: bold;">恐惧（fear）</li>
+                <li style="margin-left: 100px;font-weight: bold;">生气（anger）</li>
+                <li style="margin-left: 100px;font-weight: bold;">中性（neutral）</li>
+            </ul>
+            <p>这七类表情构成了表情识别研究的标签。</p>
+            <p>Part 1部分，请您观看视频，了解当前的表情识别研究。请不要倍速/快进/跳跃播放此视频。</p>
+            <iframe height=540 width=960 src='http://player.youku.com/embed/XNDQyMzg1NDUyMA==' frameborder=0 allowfullscreen=1></iframe>
+            <!-- <video id="video_control" width="960" height="540" autobuffer controls preload="auto" src="./videos/taiwan.mp4" type="video/mp4"></video> -->
+            <!-- <p>选择播放速率：<select id="selRate">
+                <option value="0.5">0.5</option>
+                <option value="1" selected>1.0</option>
+                <option value="1.25">1.25</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2.0</option>
+            </select></p> -->
+            <button id="transfer" class="btn-two red mini">保存进度并学习Part 2</button>
+	    </div>
+
+    
+</body>
+</html>

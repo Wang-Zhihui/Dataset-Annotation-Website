@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style type="text/css">
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        #content{
+            width: 960px;
+/*          padding: 5px;*/
+            padding-left: 20px;
+        }
+        table{
+            width: 960px;
+            text-align: center;
+        }
+        table td{
+            padding: 0px;
+            width: 14.2%;
+            height: auto;
+        }
+        table img{
+            width: auto;  
+            height: auto;  
+            max-width: 100%;  
+            max-height: 100%;   
+        }
+    </style>
+    <script src="./jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#transfer').bind("click",function(){
+                click_end_time=new Date().getTime();
+                var chazhi = (click_end_time - click_start_time) / 1000;
+                if(click_check == false){
+                    alert("您没观看视频吧，别这样了，请重新观看。");
+                    window.location.reload();
+                }
+                if(chazhi <= 1){
+                    alert("您没看完视频或者快进了吧，别这样了。");
+
+                    return;
+                }
+                window.parent.postMessage('paer_5_finish == true', '*');
+            });
+        })
+
+        var click_check = false;
+        var click_start_time;
+        var click_end_time;
+
+
+        function randomNum(minNum,maxNum){ 
+            switch(arguments.length){ 
+                case 1: 
+                    return parseInt(Math.random()*minNum+1,10); 
+                break; 
+                case 2: 
+                    return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+                break; 
+                    default: 
+                        return 0; 
+                    break; 
+            } 
+        }
+
+        window.onload = function(){
+            var btnLoad = document.getElementById('btnLoad');
+            // 视频元素
+            var video_control = document.getElementById('video_control');
+            btnLoad.addEventListener('click', function () {
+                video_control.src = './videos/train_two.mp4';
+                click_start_time=new Date().getTime();
+                click_check = true;
+            });
+
+            var img_refresh = document.getElementById('img_refresh');
+            // 视频元素
+            var tr_1 = document.getElementById('tr_1');
+
+            img_refresh.addEventListener('click', function () {
+                for (i = 0; i < 7; i++) { 
+                    var tr_1_change_id = randomNum(1,105);
+                    document.querySelector("#tr_1").children[i].children[0].src = "./train_img/old_people/" + tr_1_change_id + '.jpg';
+                 }
+             })
+
+            // var file_no ="${sessionScope.userName}"
+            // var file_no = session.getAttribute("file_no");
+
+            // var file_no_result = "<%=get_file_no_result()%>";
+            // alert(file_no_result);
+
+            // var file_no = window.opener.file_no_result;
+            // alert(file_no);
+
+            //var file_no = $('#send_file_no_to_iframe',parent.document).value;
+            //alert(file_no);
+        }
+
+    
+    </script>
+</head>
+<body>
+        <div id="content">
+            <h2>Part 5</h2>
+            <br>
+            <span>Part 5部分，最后一部分，完成此部分学习您可以开始标注。</span><br>
+            <span>让我们一起来了解下本次的“老人表情数据集”标注工作。</span><br><br>
+            <h2 style="margin-right: 5px;">老人表情数据集标注工作介绍</h2>
+            <br>
+            <h3 style="margin-right: 5px;">1. 数据集与标签</h3>
+            <span>如果您是工科专业，学习过《模式识别》课程，您一定能理解数据集与标签的含义。简单地说，标签是描述一组数据（图像、声音、视频、信息）的规范化的属性集合。</span><br>
+            <span>举个例子，我们在看一张人脸图像时，常常不自觉地就会给它打上标签。</span><br>
+            <img width="200" src="./train_img/img1.jpg"><br>
+            <span>比如上面这张图片，你是否会这样描述它呢：<span style="font-weight: bold;">男、戴围巾、头发稀疏、白色肤色</span>。因此你就给它打上了<span style="font-weight: bold;"><性别、是否戴围巾、头发状态、肤色></span>的标签</span><br>
+            <span>这就是标签。具体到本次数据集标注工作，我们要给图像打上的标签就是<span style="font-size: 20px;font-weight: bold;"> 表 情 </span>。</span><br>
+            <span>在心理学界共识中，人类具有以下六种基本的表情：</span><br>
+            <ul>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">高兴（happiness）</li>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">悲伤（sadness）</li>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">惊讶（surprise）</li>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">厌恶（disgust）</li>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">恐惧（fear）</li>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">生气（anger）</li>
+            </ul>
+            <span>当然还有一种人平静状态时的表情:中性（neutral），它不属于以上任何一种表情。</span><br>
+            <ul>
+                <li style="margin: 5px 0 5px 50px;font-weight: bold;">中性（neutral）</li>
+            </ul>
+            <span>请注意：您在打表情标签时只能选择其中七种表情中的一种，不能多选。</span><br><br>
+            <span>了解完标签之后，下面我们来了解下本次要标注的“老人表情数据集”。下面图片就来自于本次要标注的“老人表情数据集”。请试着观察它们并给它们打上表情标签。你可以点击此按钮来刷新图片。</span><button id="img_refresh"> 点击刷新图片 </button><br>
+            <table>
+                <tr id="tr_1">
+                    <td><img src="./train_img/old_people/1.jpg"></td>
+                    <td><img src="./train_img/old_people/2.jpg"></td>
+                    <td><img src="./train_img/old_people/3.jpg"></td>
+                    <td><img src="./train_img/old_people/4.jpg"></td>
+                    <td><img src="./train_img/old_people/5.jpg"></td>
+                    <td><img src="./train_img/old_people/6.jpg"></td>
+                    <td><img src="./train_img/old_people/7.jpg"></td>
+                </tr>
+            </table> 
+            <span>如你所见，该数据集的图片都是老人，这会对表情标注带来困难，请您应用前面所学及自己的经验，尽可能识别每一张图像的表情。当然，如果您还没有把握开始工作，您可以重新学习我们的培训材料，或者自己寻找材料学习。</span><br>
+            <br>
+            <h3 style="margin-right: 5px;">2. 标注网站介绍</h3>
+            <span>建议选择超清观看，请不要倍速/快进/跳跃播放此视频。</span>
+            <button id="btnLoad">载入视频</button>
+            <br>
+            <video id="video_control" width="960" height="540" autobuffer controls src="" type="video/mp4"></video>
+            <br>
+            <h3 style="margin-right: 5px;">3. 下载配置文件</h3>
+            <span>请点击链接下载配置文件，在标注时按照视频中的指示使用。</span><br>
+            <span>**********************************************</span><br>
+            <span>**********************************************</span><br>
+            <a href="./config/via_10_test.rar">下载配置文件</a><br>
+            <span>**********************************************</span><br>
+            <span>**********************************************</span><br>
+            <span>配置文件压缩包中有25个配置文件，它把需标注的图像分成了25个块。请您自己保存好配置文件，请勿做包括重命名在内的任何更改，在每次标注时导入一个新的配置文件,标注完成后，别忘了保存标注结果csv文件，并上传到服务器中。</span><br>
+            <span>您已完成所有培训，可以开始标注。</span><br>
+            <span>欢迎你加入群聊，向管理员反应任何问题。</span><br>
+            <img width="200" src="./erweima.png"><br><br>
+            <button id="transfer">开始标注</button>
+        </div>
+</body>
+</html>
